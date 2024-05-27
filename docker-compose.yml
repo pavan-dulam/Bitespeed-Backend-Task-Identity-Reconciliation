@@ -1,0 +1,20 @@
+version: '3.3'
+services:
+  identity-reconciliation:
+    build: ./
+    container_name: identity-reconciliation
+    image: identity-reconciliation
+    env_file:
+      - ./.env
+    ports: #use this on prod
+      - '3000:3000'
+      - '5432:5432'
+    # network_mode: 'host' #use it on local
+    deploy:
+      resources:
+        limits:
+          cpus: '4'
+          memory: 8G
+    volumes:
+      - ./logs:/app/logs
+    restart: unless-stopped
